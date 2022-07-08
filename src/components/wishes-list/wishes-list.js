@@ -7,6 +7,7 @@ const WishesList = ({data, onToggleDone}) => {
 
         // itemProps will contain name, categ, done etc.
         //id - unique for react to check, if item was changed
+        // onToggleDode will be called for item with current id
 
         return (
             <WishItem 

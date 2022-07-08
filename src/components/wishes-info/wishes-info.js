@@ -1,7 +1,14 @@
 import './wishes-info.css';
+import WishForm from '../wish-form/wish-form'
 
-const WishesInfo = ({count, done}) => {
+const WishesInfo = ({count, done, onAdd, onToggleShow, showForm}) => {
 
+        // - onAdd will be passed to wish form to be called in its 
+        // method onSubmit if form was submitted
+        // - onToggleSow will be triggered after click on a button
+        // and change state of showModal in app
+        // - showForm value will be passed to wish form to toggle 
+        // modal classnames
 
         return (
             <section className="top-section">
@@ -24,6 +31,7 @@ const WishesInfo = ({count, done}) => {
                                 </div>
                                 <div className="items__button">
                                     <button 
+                                        onClick={onToggleShow}
                                         className="add-wish">
                                         <img src="images/add_wish.svg" alt=""/>
                                     </button>
@@ -31,6 +39,10 @@ const WishesInfo = ({count, done}) => {
                             </div>
                         </div>
                     </div>
+                    <WishForm
+                        showForm={showForm}
+                        onAdd={onAdd}
+                    /> 
                 </section>
         )
 }

@@ -12,12 +12,14 @@ class WishForm extends Component {
         }
     }
 
+    // sets the name of state to the value of input
     onValueChange = (e) => {
         this.setState({
             [e.target.name]:  e.target.value,
         })
     }
 
+    // calls addWish when form is submitted
     onSubmit = (e) => {
         e.preventDefault();
         this.props.onAdd(this.state.name, this.state.category, this.state.done);
@@ -29,10 +31,18 @@ class WishForm extends Component {
     }
 
     render() {
+        // get the wish name from state
         const {name} = this.state;
+        let classNames = "modal "
+
+        // check if form needs to be opened
+        const showForm = this.props.showForm;
+        if (!showForm) {
+            classNames += "hide"
+        }
 
         return (
-            <div id="modal-form" className="modal hide">
+            <div id="modal-form" className={classNames}>
                     <div className="modal__dialog">
                         <div className="modal__content">
                             <form  

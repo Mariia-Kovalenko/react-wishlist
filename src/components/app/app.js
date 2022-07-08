@@ -1,6 +1,6 @@
 import {Component} from 'react';
 import WishesInfo from '../wishes-info/wishes-info'
-import WishForm from '../wish-form/wish-form'
+// import WishForm from '../wish-form/wish-form'
 import WishesList from '../wishes-list/wishes-list';
 import './app.css'
 import nextId from "react-id-generator";
@@ -16,31 +16,12 @@ class App extends Component {
             ],
             count: 3,
             done: 1,
+            showForm: false
         }
         this.maxId = nextId();
     }
 
-    addWish = (name, category, done) => {
-        const newItem = {
-            name, 
-            category,
-            done: done,
-            id: this.maxId++
-        }
-
-        this.setState((data) => {
-            const newWishList = [...data.wishlist, newItem];
-            const newCount = data.count++;
-            return {
-                wishlist: newWishList,
-                count: newCount,
-                done: data.done,
-            }
-        });
-    }
-
     onToggleDone = (id) => { 
-
         this.setState((data) => {
             const wishes = data.wishlist.map(item => {
                 if (item.id === id) {
@@ -63,12 +44,44 @@ class App extends Component {
                 wishlist: wishes,
                 count: data.count,
                 done: doneWishes,
+                showForm: data.showForm
             }
         })
     }
 
     onToggleShow = () => {
+        this.setState((data) => {
+            return {
+                wishlist: data.wishlist,
+                count: data.count,
+                done: data.done,
+                showForm: !data.showForm
+            }
+        })
+        console.log(this.state.showForm);
+    }
 
+    addWish = (name, category, done) => {
+        const newItem = {
+            name, 
+            category,
+            done: done,
+            id: this.maxId++
+        }
+
+        this.setState((data) => {
+            const newWishList = [...data.wishlist, newItem];
+            const newCount = data.count++;
+            return {
+                wishlist: newWishList,
+                count: newCount,
+                done: data.done,
+                showForm: data.showForm
+            }
+        });
+
+        // change state to hide form modal
+        this.onToggleShow();
     }
 
     render() {
@@ -79,10 +92,10 @@ class App extends Component {
             <div className="wrapper">
                 <div className='container'>
                     <WishesInfo
+                        onToggleShow={this.onToggleShow}
+                        showForm={this.state.showForm}
                         count={totalWishesCount}
                         done={doneWishesCount}
-                    />
-                    <WishForm
                         onAdd={this.addWish}
                     />
                     <WishesList

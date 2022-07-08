@@ -88,7 +88,8 @@ label{
 
 @media screen and (max-width: 768px){
     .modal__inputs input,
-    .inputs__block{
-        flex: 1 1 100%;
+    .inputs__block, textarea, select{
+        /* flex: 1 1 100%; */
+        width: 100%;
     }
 }

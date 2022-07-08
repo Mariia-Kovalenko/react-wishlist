@@ -2,6 +2,7 @@ import './wish-item.css';
 
 const WishItem = (props) => {
 
+    // gets the properties from WishList component
     const {name, category, done, onToggleDone} = props;
 
     let classNames = "wishlist__item wish ";
@@ -27,6 +28,7 @@ const WishItem = (props) => {
         </div>
         <div className="wish__icons">
             <button 
+            // calls onToggleDone for current item on click
                 onClick={onToggleDone}
                 id = "done-wish">
                 <img src={checkmarkSrc}/>
