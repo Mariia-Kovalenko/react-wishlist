@@ -1,0 +1,38 @@
+.wishes{
+    margin-top: 50px;
+}
+
+.wishes__heading{
+    font-family: 'Risque', cursive;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 46px;
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.wishlist {
+    padding-bottom: 30px;
+}
+
+@media screen and (min-width: 820px){
+    .wishlist{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        margin: 0 -16px;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .wishlist{
+        width: 100%;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .wishlist{
+        width: 100%;
+        margin: 0;
+    }
+}
