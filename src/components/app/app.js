@@ -3,7 +3,7 @@ import WishesInfo from '../wishes-info/wishes-info'
 // import WishForm from '../wish-form/wish-form'
 import WishesList from '../wishes-list/wishes-list';
 import './app.css'
-import nextId from "react-id-generator";
+import { v4 as uuid } from 'uuid';
 
 class App extends Component {
     constructor(props) {
@@ -16,9 +16,13 @@ class App extends Component {
             ],
             count: 3,
             done: 1,
-            showForm: false
+            showForm: false,
+            categories: [
+                {id: 1, name: 'no-category'},
+                {id: 2, name: 'Birthday'},
+                {id: 3, name: 'Travelling'},
+            ]
         }
-        this.maxId = nextId();
     }
 
     onToggleDone = (id) => { 
@@ -44,7 +48,8 @@ class App extends Component {
                 wishlist: wishes,
                 count: data.count,
                 done: doneWishes,
-                showForm: data.showForm
+                showForm: data.showForm,
+                categories: data.categories
             }
         })
     }
@@ -55,10 +60,11 @@ class App extends Component {
                 wishlist: data.wishlist,
                 count: data.count,
                 done: data.done,
-                showForm: !data.showForm
+                showForm: !data.showForm,
+                categories: data.categories
             }
         })
-        console.log(this.state.showForm);
+        // console.log(this.state.showForm);
     }
 
     addWish = (name, desc, category, done) => {
@@ -67,7 +73,7 @@ class App extends Component {
             desc,
             category,
             done: done,
-            id: this.maxId++
+            id: uuid()
         }
 
         if (newItem.name) {
@@ -77,7 +83,8 @@ class App extends Component {
                     wishlist: newWishList,
                     count: ++data.count,
                     done: data.done,
-                    showForm: data.showForm
+                    showForm: data.showForm,
+                    categories: data.categories
                 }
             });
         }
@@ -85,9 +92,32 @@ class App extends Component {
         this.onToggleShow();
     }
 
+    addCategory = (name) => {
+        const newItem = {
+            id: uuid(),
+            name: name
+        }
+
+        if (newItem.name) {
+            this.setState((data) => {
+                const newCategList = [...data.categories, newItem];
+                
+                return {
+                    wishlist: data.wishlist,
+                    count: data.count,
+                    done: data.done,
+                    showForm: data.showForm,
+                    categories: newCategList
+                }
+            });
+        }
+    }
+
     render() {
         const totalWishesCount = this.state.count;
         const doneWishesCount = this.state.done;
+
+        // console.log(this.state.categories);
 
         return (
             <div className="wrapper">
@@ -98,6 +128,8 @@ class App extends Component {
                         count={totalWishesCount}
                         done={doneWishesCount}
                         onAdd={this.addWish}
+                        addCategory={this.addCategory}
+                        categories={this.state.categories}
                     />
                     <WishesList
                         data={this.state.wishlist}

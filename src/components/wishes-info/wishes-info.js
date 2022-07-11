@@ -1,7 +1,7 @@
 import './wishes-info.css';
 import WishForm from '../wish-form/wish-form'
 
-const WishesInfo = ({count, done, onAdd, onToggleShow, showForm}) => {
+const WishesInfo = ({count, done, onAdd, onToggleShow, showForm, categories, addCategory}) => {
 
         // - onAdd will be passed to wish form to be called in its 
         // method onSubmit if form was submitted
@@ -42,6 +42,8 @@ const WishesInfo = ({count, done, onAdd, onToggleShow, showForm}) => {
                     <WishForm
                         showForm={showForm}
                         onAdd={onAdd}
+                        categories={categories}
+                        addCategory={addCategory}
                     /> 
                 </section>
         )

@@ -1,5 +1,6 @@
 import './wish-form.css';
 import {Component} from 'react';
+import Category from "../category/category";
 
 class WishForm extends Component {
 
@@ -8,39 +9,67 @@ class WishForm extends Component {
         this.state = {
             name: '',
             desc: '',
-            category: 'no-categ',
-            done: false
+            category: props.categories[0].name,
+            done: false,
+            categories: props.categories
         }
     }
 
-    // sets the name of state to the value of input
+    // sets the name or desc of state to the value of input
     onValueChange = (e) => {
         this.setState({
             [e.target.name]:  e.target.value,
         })
     }
 
-    // onDescValueChange = (e) => {
-    //     this.setState({
-    //         [e.target.name]:  e.target.value,
-    //     })
-    // }
-
     // calls addWish when form is submitted
     onSubmit = (e) => {
         e.preventDefault();
         this.props.onAdd(this.state.name, this.state.desc, this.state.category, this.state.done);
+        this.props.addCategory(this.state.category);
         this.setState({
             name: '',
             desc: '',
-            category: 'no-categ',
-            done: false
+            category: this.props.categories[0].name,
+            done: false,
+            categories: this.props.categories
         })
     }
 
+    onSelectChange = (e) => {
+        this.setState({
+            category: e.target.value
+        });
+    }
+
+    onCategoryAdd = (e) => {
+        this.setState({
+            category: e.target.value
+        });
+    }
+
     render() {
+        // console.log('form render', this.props.categories);
+        // get categories from app.js
+        let categories = this.props.categories.map(item => {
+            const {id, name} = item;
+            return (
+                <Category
+                    key={id}
+                    name={name}
+                />
+            )
+        });
+
+        console.log(categories);
         // get the wish name from state
-        const {name, desc} = this.state;
+        const {name, desc, category} = this.state;
+        // let disable = false
+
+        // if (category !== 'no-category') {
+        //     disable = true;
+        // }
+
         let classNames = "modal "
 
         // check if form needs to be opened
@@ -90,14 +119,21 @@ class WishForm extends Component {
                                         <select 
                                             className="modal__select" 
                                             name="categs" 
-                                            id="categs">
-                                            <option value="no category">No category</option>
-                                            <option value="Birthday">Birthday</option>
-                                            <option value="Travelling">Travelling</option>
+                                            id="categs"
+                                            value={category}
+                                            onChange={this.onSelectChange}>
+                                            {categories}
                                         </select>
     
                                         <label htmlFor="category">Or Create Category</label>
-                                        <input className="modal__input" type="text" name="category" id="category"/>
+                                        <input 
+                                            className="modal__input" 
+                                            type="text" 
+                                            name="new-category" 
+                                            id="category"
+                                            disabled={false}
+                                            onChange={this.onCategoryAdd}
+                                            />
                                     </div>
     
                                     <input type="submit" 
