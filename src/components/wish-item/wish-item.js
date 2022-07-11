@@ -3,7 +3,7 @@ import './wish-item.css';
 const WishItem = (props) => {
 
     // gets the properties from WishList component
-    const {name, category, done, onToggleDone} = props;
+    const {name, category, done, onToggleDone, onDelete} = props;
 
     let classNames = "wishlist__item wish ";
     let checkmarkSrc = "images/checkmark-green.svg";
@@ -34,7 +34,9 @@ const WishItem = (props) => {
                 <img src={checkmarkSrc} alt="checkmark"/>
             </button>
 
-            <button id = "delete-wish">
+            <button 
+                id = "delete-wish"
+                onClick={onDelete}>
                 <img src={trashSrc} alt="trash"/>
             </button>
         </div>

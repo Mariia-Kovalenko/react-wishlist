@@ -1,7 +1,7 @@
 import './wishes-list.css'
 import WishItem from '../wish-item/wish-item'
 
-const WishesList = ({data, onToggleDone}) => {
+const WishesList = ({data, onToggleDone, onDelete}) => {
     const items = data.map(item => {
         const {id, ...itemProps} = item;
 
@@ -14,6 +14,7 @@ const WishesList = ({data, onToggleDone}) => {
                 key= {id}
                 {...itemProps}
                 onToggleDone = {() => onToggleDone(id)}
+                onDelete={() => onDelete(id)}
             />
         )
     })

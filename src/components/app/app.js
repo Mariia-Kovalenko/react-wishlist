@@ -92,6 +92,18 @@ class App extends Component {
         this.onToggleShow();
     }
 
+    deleteWish = (id) => {
+        this.setState((data) => {
+            return {
+                wishlist: data.wishlist.filter(el => el.id !== id),
+                count: --data.count,
+                done: data.done,
+                showForm: data.showForm,
+                categories: data.categories
+            }
+        })
+    }
+
     addCategory = (name) => {
         const newItem = {
             id: uuid(),
@@ -134,6 +146,7 @@ class App extends Component {
                     <WishesList
                         data={this.state.wishlist}
                         onToggleDone={this.onToggleDone}
+                        onDelete={this.deleteWish}
                     />
                 </div>
             </div>
