@@ -7,6 +7,7 @@ class WishForm extends Component {
         super(props);
         this.state = {
             name: '',
+            desc: '',
             category: 'no-categ',
             done: false
         }
@@ -19,12 +20,19 @@ class WishForm extends Component {
         })
     }
 
+    // onDescValueChange = (e) => {
+    //     this.setState({
+    //         [e.target.name]:  e.target.value,
+    //     })
+    // }
+
     // calls addWish when form is submitted
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.onAdd(this.state.name, this.state.category, this.state.done);
+        this.props.onAdd(this.state.name, this.state.desc, this.state.category, this.state.done);
         this.setState({
             name: '',
+            desc: '',
             category: 'no-categ',
             done: false
         })
@@ -32,7 +40,7 @@ class WishForm extends Component {
 
     render() {
         // get the wish name from state
-        const {name} = this.state;
+        const {name, desc} = this.state;
         let classNames = "modal "
 
         // check if form needs to be opened
@@ -67,13 +75,22 @@ class WishForm extends Component {
                                             />
     
                                         <label htmlFor="desc">Wish Describtion</label>
-                                        <textarea id ="wish-desc" className="modal__textarea" type="text" name="desc"></textarea>
+                                        <textarea 
+                                            id ="wish-desc" 
+                                            className="modal__textarea" 
+                                            type="text" 
+                                            name="desc"
+                                            value={desc}
+                                            onChange={this.onValueChange}/>
                                     </div>
                                     
     
                                     <div className="inputs__block">
                                         <label htmlFor="categs">Choose Category</label>
-                                        <select className="modal__select" name="categs" id="categs">
+                                        <select 
+                                            className="modal__select" 
+                                            name="categs" 
+                                            id="categs">
                                             <option value="no category">No category</option>
                                             <option value="Birthday">Birthday</option>
                                             <option value="Travelling">Travelling</option>

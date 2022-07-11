@@ -3,7 +3,7 @@ import './wish-item.css';
 const WishItem = (props) => {
 
     // gets the properties from WishList component
-    const {name, category, done, onToggleDone} = props;
+    const {name, desc, category, done, onToggleDone} = props;
 
     let classNames = "wishlist__item wish ";
     let checkmarkSrc = "images/checkmark-green.svg";

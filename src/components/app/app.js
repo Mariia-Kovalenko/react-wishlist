@@ -10,9 +10,9 @@ class App extends Component {
         super(props);
         this.state = {
             wishlist: [
-                {name: 'wish', category: 'default', done: true, id: 1},
-                {name: 'wish 2', category: 'default', done: false, id: 2},
-                {name: 'wish 3', category: 'default', done: false, id: 3}
+                {name: 'wish', desc: '', category: 'default', done: true, id: 1},
+                {name: 'wish 2', desc: '', category: 'default', done: false, id: 2},
+                {name: 'wish 3', desc: '', category: 'default', done: false, id: 3}
             ],
             count: 3,
             done: 1,
@@ -61,25 +61,26 @@ class App extends Component {
         console.log(this.state.showForm);
     }
 
-    addWish = (name, category, done) => {
+    addWish = (name, desc, category, done) => {
         const newItem = {
             name, 
+            desc,
             category,
             done: done,
             id: this.maxId++
         }
 
-        this.setState((data) => {
-            const newWishList = [...data.wishlist, newItem];
-            const newCount = data.count++;
-            return {
-                wishlist: newWishList,
-                count: newCount,
-                done: data.done,
-                showForm: data.showForm
-            }
-        });
-
+        if (newItem.name) {
+            this.setState((data) => {
+                const newWishList = [...data.wishlist, newItem];
+                return {
+                    wishlist: newWishList,
+                    count: ++data.count,
+                    done: data.done,
+                    showForm: data.showForm
+                }
+            });
+        }
         // change state to hide form modal
         this.onToggleShow();
     }

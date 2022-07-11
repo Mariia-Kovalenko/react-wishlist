@@ -7,7 +7,7 @@ const WishesInfo = ({count, done, onAdd, onToggleShow, showForm}) => {
         // method onSubmit if form was submitted
         // - onToggleSow will be triggered after click on a button
         // and change state of showModal in app
-        // - showForm value will be passed to wish form to toggle 
+        // - showForm (true/false) value will be passed to wish form to toggle 
         // modal classnames
 
         return (
