@@ -46,10 +46,7 @@ class App extends Component {
 
             return {
                 wishlist: wishes,
-                count: data.count,
                 done: doneWishes,
-                showForm: data.showForm,
-                categories: data.categories
             }
         })
     }
@@ -57,11 +54,7 @@ class App extends Component {
     onToggleShow = () => {
         this.setState((data) => {
             return {
-                wishlist: data.wishlist,
-                count: data.count,
-                done: data.done,
                 showForm: !data.showForm,
-                categories: data.categories
             }
         })
         // console.log(this.state.showForm);
@@ -82,9 +75,6 @@ class App extends Component {
                 return {
                     wishlist: newWishList,
                     count: ++data.count,
-                    done: data.done,
-                    showForm: data.showForm,
-                    categories: data.categories
                 }
             });
         }
@@ -97,9 +87,9 @@ class App extends Component {
             return {
                 wishlist: data.wishlist.filter(el => el.id !== id),
                 count: --data.count,
-                done: data.done,
-                showForm: data.showForm,
-                categories: data.categories
+                // done: data.done,
+                // showForm: data.showForm,
+                // categories: data.categories
             }
         })
     }
