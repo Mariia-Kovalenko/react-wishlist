@@ -52,16 +52,16 @@ class WishForm extends Component {
         // console.log('form render', this.props.categories);
         // get categories from app.js
         let categories = this.props.categories.map(item => {
-            const {id, name} = item;
+            const {name} = item;
             return (
                 <Category
-                    key={id}
+                    key={name}
                     name={name}
                 />
             )
         });
 
-        console.log(categories);
+        // console.log(categories);
         // get the wish name from state
         const {name, desc, category} = this.state;
         // let disable = false

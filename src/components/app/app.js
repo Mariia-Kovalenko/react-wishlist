@@ -95,21 +95,35 @@ class App extends Component {
     }
 
     addCategory = (name) => {
-        const newItem = {
-            id: uuid(),
-            name: name
-        }
-
-        if (newItem.name) {
-            this.setState((data) => {
-                const newCategList = [...data.categories, newItem];
-                
+        const contains = this.state.categories.find(item => item.name === name);
+        console.log(contains);
+        if (!contains) {
+            const newItem = {
+                // id: uuid(),
+                name: name
+            }
+    
+            if (newItem.name) {
+                this.setState((data) => {
+                    const newCategList = [...data.categories, newItem];
+                    
+                    return {
+                        wishlist: data.wishlist,
+                        count: data.count,
+                        done: data.done,
+                        showForm: data.showForm,
+                        categories: newCategList
+                    }
+                });
+            }
+        } else {
+            this.setState((data) => {               
                 return {
                     wishlist: data.wishlist,
                     count: data.count,
                     done: data.done,
                     showForm: data.showForm,
-                    categories: newCategList
+                    categories: data.categories
                 }
             });
         }
