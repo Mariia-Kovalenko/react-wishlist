@@ -2,6 +2,7 @@ import {Component} from 'react';
 import WishesInfo from '../wishes-info/wishes-info'
 // import WishForm from '../wish-form/wish-form'
 import WishesList from '../wishes-list/wishes-list';
+import Skeleton from '../skeleton/skeleton';
 import './app.css'
 import { v4 as uuid } from 'uuid';
 
@@ -124,9 +125,17 @@ class App extends Component {
 
     deleteWish = (id) => {
         this.setState((data) => {
+            const updatedWishList = data.wishlist.filter(el => el.id !== id);
+            const newDone = updatedWishList.reduce((acc, curr) => {
+                if (curr.done) {
+                    return acc+=1;
+                }
+                return acc;
+            }, 0)
             return {
-                wishlist: data.wishlist.filter(el => el.id !== id),
+                wishlist: updatedWishList,
                 count: --data.count,
+                done: newDone 
                 // done: data.done,
                 // showForm: data.showForm,
                 // categories: data.categories
@@ -174,6 +183,7 @@ class App extends Component {
         const doneWishesCount = this.state.done;
 
         // console.log(this.state.categories);
+        const wishesContent = this.state.wishlist.length ? null : <Skeleton/>
 
         return (
             <div className="wrapper">
@@ -192,6 +202,7 @@ class App extends Component {
                         onToggleDone={this.onToggleDone}
                         onDelete={this.deleteWish}
                     />
+                    {wishesContent}
                 </div>
             </div>
         )

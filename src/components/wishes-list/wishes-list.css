@@ -11,9 +11,6 @@
     margin-bottom: 36px;
 }
 
-.wishlist {
-    padding-bottom: 30px;
-}
 
 @media screen and (min-width: 820px){
     .wishlist{
