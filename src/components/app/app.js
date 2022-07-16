@@ -9,13 +9,14 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            wishlist: [
-                {name: 'wish', desc: '', category: 'default', done: true, id: 1},
-                {name: 'wish 2', desc: '', category: 'default', done: false, id: 2},
-                {name: 'wish 3', desc: '', category: 'default', done: false, id: 3}
-            ],
-            count: 3,
-            done: 1,
+            wishlist: [],
+            // [
+            //     {name: 'wish', desc: '', category: 'default', done: true, id: 1},
+            //     {name: 'wish 2', desc: '', category: 'default', done: false, id: 2},
+            //     {name: 'wish 3', desc: '', category: 'default', done: false, id: 3}
+            // ],
+            count: 0,
+            done: 0,
             showForm: false,
             categories: [
                 {id: 1, name: 'no-category'},
@@ -23,6 +24,39 @@ class App extends Component {
                 {id: 3, name: 'Travelling'},
             ]
         }
+    }
+
+    componentDidMount() {
+        this.getWishlistFromLocal();
+    }
+
+    componentDidUpdate() {
+        // console.log('update');
+        this.updateLocal();
+    }
+
+    getWishlistFromLocal = () => {
+        const wishList = this.loadDataLocalStorage();
+        const doneWishes = this.countDoneWishes(wishList);
+        this.setState({
+            wishlist: wishList, 
+            count: wishList.length, 
+            done: doneWishes
+        })
+    }
+
+    loadDataLocalStorage = () => {
+        if(!localStorage.wishlist){
+            return [];
+        }else{
+            return JSON.parse(localStorage.getItem('wishlist'));
+        }
+    }
+
+    updateLocal() {
+        //adding array to browser local storage (making it JSON)
+        localStorage.setItem('wishlist', JSON.stringify(this.state.wishlist));
+        // localStorage.setItem('wishCategories', JSON.stringify(wishCategories));
     }
 
     onToggleDone = (id) => { 
@@ -37,18 +71,28 @@ class App extends Component {
                 return item;
             });
 
-            const doneWishes = wishes.reduce((acc, curr) => {
-                if (curr.done) {
-                    acc++;
-                }
-                return acc;
-            }, 0);
+            const doneWishes = this.countDoneWishes(wishes);
+            // wishes.reduce((acc, curr) => {
+            //     if (curr.done) {
+            //         acc++;
+            //     }
+            //     return acc;
+            // }, 0);
 
             return {
                 wishlist: wishes,
                 done: doneWishes,
             }
         })
+    }
+
+    countDoneWishes = (wishes) => {
+        return wishes.reduce((acc, curr) => {
+            if (curr.done) {
+                acc++;
+            }
+            return acc;
+        }, 0);
     }
 
     onToggleShow = () => {
@@ -78,6 +122,7 @@ class App extends Component {
                 }
             });
         }
+        console.log(this.state.count, this.state.done);
         // change state to hide form modal
         this.onToggleShow();
     }
