@@ -10,11 +10,6 @@ class App extends Component {
         super(props);
         this.state = {
             wishlist: [],
-            // [
-            //     {name: 'wish', desc: '', category: 'default', done: true, id: 1},
-            //     {name: 'wish 2', desc: '', category: 'default', done: false, id: 2},
-            //     {name: 'wish 3', desc: '', category: 'default', done: false, id: 3}
-            // ],
             count: 0,
             done: 0,
             showForm: false,
@@ -26,13 +21,19 @@ class App extends Component {
         }
     }
 
+    // receive wishlist from localStorage as soon as component mounted
     componentDidMount() {
         this.getWishlistFromLocal();
     }
 
-    componentDidUpdate() {
-        // console.log('update');
-        this.updateLocal();
+    // will be invoked each time we change state 
+    // (e.g. add wish, delete wish, update wish status etc.)
+    componentDidUpdate(prevProps, prevState) {
+        // check of prev and curr props
+        if (prevState.count !== this.state.count || prevState.done !== this.state.done) {
+            this.updateLocal();
+            // console.log('update');
+        }
     }
 
     getWishlistFromLocal = () => {
@@ -72,12 +73,6 @@ class App extends Component {
             });
 
             const doneWishes = this.countDoneWishes(wishes);
-            // wishes.reduce((acc, curr) => {
-            //     if (curr.done) {
-            //         acc++;
-            //     }
-            //     return acc;
-            // }, 0);
 
             return {
                 wishlist: wishes,
@@ -122,7 +117,7 @@ class App extends Component {
                 }
             });
         }
-        console.log(this.state.count, this.state.done);
+        // console.log(this.state.count, this.state.done);
         // change state to hide form modal
         this.onToggleShow();
     }
