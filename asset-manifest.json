@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/Mariia-Kovalenko/react-wishlist/static/css/main.b13ea012.css",
-    "main.js": "/Mariia-Kovalenko/react-wishlist/static/js/main.0720ae8a.js",
-    "index.html": "/Mariia-Kovalenko/react-wishlist/index.html",
-    "main.b13ea012.css.map": "/Mariia-Kovalenko/react-wishlist/static/css/main.b13ea012.css.map",
-    "main.0720ae8a.js.map": "/Mariia-Kovalenko/react-wishlist/static/js/main.0720ae8a.js.map"
+    "main.css": "/react-wishlist/static/css/main.b13ea012.css",
+    "main.js": "/react-wishlist/static/js/main.0720ae8a.js",
+    "index.html": "/react-wishlist/index.html",
+    "main.b13ea012.css.map": "/react-wishlist/static/css/main.b13ea012.css.map",
+    "main.0720ae8a.js.map": "/react-wishlist/static/js/main.0720ae8a.js.map"
   },
   "entrypoints": [
     "static/css/main.b13ea012.css",
