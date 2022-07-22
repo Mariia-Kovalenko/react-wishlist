@@ -3,7 +3,7 @@ import './wish-item.css';
 const WishItem = (props) => {
 
     // gets the properties from WishList component
-    const {name, category, done, onToggleDone, onDelete} = props;
+    const {name, category, desc, done, onToggleDone, onDelete} = props;
 
     let classNames = "wishlist__item wish ";
     let checkmarkSrc = "images/checkmark-green.svg";
@@ -18,12 +18,13 @@ const WishItem = (props) => {
     return (
         <div id = "wish-item" className={classNames}>
         <div className="wish__inner">
-            <div className="wish__image">
+            {/* <div className="wish__image">
                 <img src="images/shopping-bag.png" alt="img"/>
-            </div>
+            </div> */}
             <div className="wish__data">
                 <div className="wish__name">{name}</div>
                 <div className="wish__category">{category}</div>
+                <div className="wish__desc">{desc}</div>
             </div>
         </div>
         <div className="wish__icons">

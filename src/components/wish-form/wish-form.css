@@ -104,7 +104,7 @@ label {
 
     .modal__dialog {
         max-width: 100%;
-        margin: 0px;
+        margin: 20px 5px;
         padding: 20px;
         height: fit-content;  
     }

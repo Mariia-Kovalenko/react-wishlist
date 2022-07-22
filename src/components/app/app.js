@@ -25,6 +25,7 @@ class App extends Component {
     // receive wishlist from localStorage as soon as component mounted
     componentDidMount() {
         this.getWishlistFromLocal();
+        this.getCategoriesFromLocal();
     }
 
     // will be invoked each time we change state 
@@ -32,8 +33,11 @@ class App extends Component {
     componentDidUpdate(prevProps, prevState) {
         // check of prev and curr props
         if (prevState.count !== this.state.count || prevState.done !== this.state.done) {
-            this.updateLocal();
+            this.updateLocal('wishlist');
             // console.log('update');
+        }
+        if (prevState.categories.length < this.state.categories.length) {
+            this.updateLocal('categories')
         }
     }
 
@@ -47,6 +51,17 @@ class App extends Component {
         })
     }
 
+    getCategoriesFromLocal = () => {
+        const categories = this.loadCategsLocalStorage();
+        if (categories.length) {
+            this.setState({
+                categories: categories
+            })
+        } else if (this.state.categories.length === 3){
+            this.updateLocal('categories')
+        }
+    }
+
     loadDataLocalStorage = () => {
         if(!localStorage.wishlist){
             return [];
@@ -55,10 +70,21 @@ class App extends Component {
         }
     }
 
-    updateLocal() {
+    loadCategsLocalStorage = () => {
+        if(!localStorage.categories){
+            return [];
+        }else{
+            return JSON.parse(localStorage.getItem('categories'));
+        }
+    }
+
+    updateLocal(item) {
         //adding array to browser local storage (making it JSON)
-        localStorage.setItem('wishlist', JSON.stringify(this.state.wishlist));
-        // localStorage.setItem('wishCategories', JSON.stringify(wishCategories));
+        if (item === 'wishlist') {
+            localStorage.setItem('wishlist', JSON.stringify(this.state.wishlist));
+        } else if (item === 'categories') {
+            localStorage.setItem('categories', JSON.stringify(this.state.categories));
+        }
     }
 
     onToggleDone = (id) => { 
@@ -107,6 +133,10 @@ class App extends Component {
             category,
             done: done,
             id: uuid()
+        }
+
+        if (!newItem.desc) {
+            newItem.desc = 'No description'
         }
 
         if (newItem.name) {

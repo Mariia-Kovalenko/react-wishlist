@@ -10,6 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 10px;
 
     transition: all .4s;
     
@@ -26,40 +27,68 @@
     background-color: #FDD888;
     border-radius: 50%;
     padding: 10px;
+
+    margin: auto;
 }
 
 .wish__name{
     font-weight: 500;
-    font-size: 20px;
+    font-size: 22px;
     line-height: 22px;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 .wish__category{
     font-weight: 500;
     font-size: 16px;
     line-height: 17px;
+    font-style: italic;
     
     color: #888686;
+
+    margin-bottom: 15px;
+}
+
+.wish__desc {
+    font-size: 14px;
+    /* max-width: 90%; */
+
+    color: #6e6e6e;
 }
 .wish__inner{
     display: flex;
+    gap: 20px;
 }
 
-.wish__inner >:not(:last-child){
+/* .wish__inner >:not(:last-child){
     margin-right: 30px;
+} */
+.wish__icons {
+    display: flex;
+    gap: 10px;
 }
 
+.wish__icons > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: fit-content;
+}
 .wish__icons >* {
     cursor: pointer;
 }
 
-.wish__icons >:not(:last-child){
+/* .wish__icons >:not(:last-child){
     margin-right: 20px;
-}
+} */
 
 .completed {
-    background: #5DD240;
+    background: #91CA34;
     color: white;
+}
+
+.completed  div {
+    color: rgb(225, 225, 225);
 }
 
 @media screen and (min-width: 820px){
@@ -77,18 +106,18 @@
         margin-right: 10px;
     }
 
-    .wish__inner > :not(:last-child){
+    /* .wish__inner > :not(:last-child){
         margin-right: 20px;
-    }
+    } */
     .wish__name{
         font-size: 18px;
     }
     .wish__category{
         font-size: 14px;
     }
-    .wish__icons > :not(:last-child){
+    /* .wish__icons > :not(:last-child){
         margin-right: 10px;
-    }
+    } */
 }
 
 @media screen and (max-width: 768px){

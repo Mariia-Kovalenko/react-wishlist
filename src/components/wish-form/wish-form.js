@@ -11,7 +11,8 @@ class WishForm extends Component {
             desc: '',
             category: props.categories[0].name,
             done: false,
-            categories: props.categories
+            categories: props.categories,
+            disable: false
         }
     }
 
@@ -32,19 +33,26 @@ class WishForm extends Component {
             desc: '',
             category: this.props.categories[0].name,
             done: false,
-            categories: this.props.categories
+            categories: this.props.categories,
+            disable: false
         })
     }
 
     onSelectChange = (e) => {
+        let disable = false;
+        if (e.target.value !== 'no-category') {
+            disable = true
+        } 
         this.setState({
-            category: e.target.value
+            category: e.target.value,
+            disable: disable
         });
     }
 
     onCategoryAdd = (e) => {
         this.setState({
-            category: e.target.value
+            category: e.target.value,
+            disable: false
         });
     }
 
@@ -61,14 +69,9 @@ class WishForm extends Component {
             )
         });
 
-        // console.log(categories);
         // get the wish name from state
-        const {name, desc, category} = this.state;
-        // let disable = false
-
-        // if (category !== 'no-category') {
-        //     disable = true;
-        // }
+        const {name, desc, category, disable} = this.state;
+        // console.log(category);
 
         let classNames = "modal "
 
@@ -108,6 +111,7 @@ class WishForm extends Component {
                                             id ="wish-desc" 
                                             className="modal__textarea" 
                                             type="text" 
+                                            maxlength="100"
                                             name="desc"
                                             value={desc}
                                             onChange={this.onValueChange}/>
@@ -131,7 +135,8 @@ class WishForm extends Component {
                                             type="text" 
                                             name="new-category" 
                                             id="category"
-                                            disabled={false}
+                                            disabled={disable}
+                                            value={category === 'no-category' ? '' : category}
                                             onChange={this.onCategoryAdd}
                                             />
                                     </div>
